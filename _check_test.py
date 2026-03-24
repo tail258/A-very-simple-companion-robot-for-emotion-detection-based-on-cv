@@ -6,7 +6,6 @@ def check_dependencies():
     print(">>> 正在启动 Sentient Bot V2 环境自检程序...")
     print("-" * 60)
 
-    # 格式: "代码中导入的模块名": "pip安装时的包名"
     requirements = {
         "cv2": "opencv-python",          # 视觉核心
         "numpy": "numpy",                # 矩阵运算
@@ -25,7 +24,6 @@ def check_dependencies():
     for module_name, package_name in requirements.items():
         try:
             importlib.import_module(module_name)
-            # 获取版本号 (有些库版本号属性名不同，简单处理)
             try:
                 lib = sys.modules[module_name]
                 version = getattr(lib, '__version__', 'Unknown')
@@ -42,16 +40,15 @@ def check_dependencies():
     
     if missing:
         print(f"检测到 {len(missing)} 个缺失的依赖库。")
-        print("请复制以下命令并在终端运行以修复环境：")
+        print("复制以下命令并在终端运行以修复环境：")
         print("\n" + "="*60)
         
-        # 针对国内网络环境，我加上了清华源镜像加速
         install_cmd = f"pip install {' '.join(missing)} -i https://pypi.tuna.tsinghua.edu.cn/simple"
         print(install_cmd)
         
         print("="*60 + "\n")
     else:
-        print("完美！所有依赖库已就绪。")
+        print("所有依赖库已就绪。")
         print("系统状态：READY TO LAUNCH")
 
     # 额外检查：TTS 引擎在 Windows 下通常需要 comtypes

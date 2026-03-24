@@ -1,0 +1,50 @@
+# ==========================================
+# Sentient Bot V2 - 全局配置文件
+# ==========================================
+
+# --- 1. 系统基础设置 ---
+system:
+  mode: "dev"             # dev: 开发模式(用虚拟硬件), prod: 生产模式(用真实硬件)
+  log_level: "INFO"       # DEBUG, INFO, WARNING, ERROR
+
+# --- 2. 网络通信 (Nervous System) ---
+network:
+  target_ip: "127.0.0.1"  # 模拟器用本机，真实树莓派填 192.168.x.x
+  target_port: 5555       # 控制指令端口
+
+# --- 3. 视觉感知 (Vision) ---
+vision:
+  camera_index: 0         # 0: 默认摄像头, 1: 外接USB
+  resolution: [640, 480]  # [宽, 高]
+  show_debug_window: true # 是否显示 cv2 窗口
+  
+  # 运动控制参数
+  pid_kp: 0.08            # PID 比例系数 (越小越柔和，越大越灵敏)
+  one_euro_filter:        # 视线滤波参数
+    min_cutoff: 0.01      # 最小截止频率 (越小越稳)
+    beta: 0.5             # 速度系数 (越大越快)
+
+# --- 4. 听觉系统 (Hearing) ---
+hearing:
+  enabled: true
+  model_size: "small"     # tiny, base, small, medium, large
+  device: "cpu"          # cuda (N卡), cpu
+  language: "en"          # zh: 中文, en: 英文, null: 自动识别
+  record_duration: 4      # 每次录音时长(秒)
+
+# --- 5. 认知中枢 (Brain) ---
+brain:
+  llm_model: "qwen2.5:3b" # Ollama 模型名称
+  ollama_host: "http://localhost:11434"
+
+# --- 6. 表达系统 (Voice) ---
+voice:
+  speed: 160              # 语速
+  volume: 1.0             # 音量 (0.0 - 1.0)
+  language: "zh"  # 新增: "zh" (中文) 或 "en" (英文)
+
+# --- 7. 情绪感知 (Emotion) ---
+emotion:
+  enabled: true           # 开关
+  device: "cpu"           # 强制使用 cpu (如果你修好了环境想用 cuda，改这里即可)
+  update_interval: 10      # 每隔多少帧运行一次分析 (CPU模式建议设为 5-10)
